@@ -189,10 +189,15 @@ header nav button:hover {
   cursor: pointer;
 }
 
-.cart-content a {
+.cart-content a, .cart-content .link-button {
   background: #f8f9fa;
   color: #007bff;
   border: 1px solid #ddd;
+}
+
+.link-button {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .product-card button {

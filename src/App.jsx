@@ -31,7 +31,11 @@ function App() {
   }, []);
 
   const addToCart = (product) => {
-    const updatedCart = [...cart, product];
+    const cartItem = {
+      ...product,
+      cartItemId: Date.now() // Add a unique ID for each cart item
+    };
+    const updatedCart = [...cart, cartItem];
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
@@ -49,7 +53,7 @@ function App() {
           <button onClick={() => setShowCart(true)}>Cart ({cart.length})</button>
         </nav>
       </header>
-      {showCart && <Cart onClose={() => setShowCart(false)} />}
+      {showCart && <Cart cart={cart} updateCart={setCart} onClose={() => setShowCart(false)} />}
       <Routes>
         <Route
           path="/"

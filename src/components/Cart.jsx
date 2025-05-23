@@ -1,17 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Cart({ onClose }) {
-  const [cart, setCart] = useState([]);
+function Cart({ cart, onClose, updateCart }) {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    setCart(storedCart);
-  }, []);
-
-  const removeFromCart = (id) => {
-    const updatedCart = cart.filter(item => item.id !== id);
-    setCart(updatedCart);
+  const removeFromCart = (cartItemId) => {
+    const updatedCart = cart.filter(item => item.cartItemId !== cartItemId);
+    updateCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
@@ -24,9 +18,9 @@ function Cart({ onClose }) {
         {cart.length > 0 ? (
           <>
             {cart.map(item => (
-              <div key={item.id} className="cart-item">
+              <div key={item.cartItemId} className="cart-item">
                 <span>{item.name} - ${item.price.toFixed(2)}</span>
-                <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                <button onClick={() => removeFromCart(item.cartItemId)}>Remove</button>
               </div>
             ))}
             <p>Total: ${totalPrice.toFixed(2)}</p>
@@ -35,7 +29,10 @@ function Cart({ onClose }) {
           <p>Your cart is empty</p>
         )}
         <button onClick={onClose}>Close</button>
-        <Link to="/">Continue Shopping</Link>
+        <button className="link-button" onClick={() => {
+          onClose();
+          navigate('/');
+        }}>Continue Shopping</button>
       </div>
     </div>
   );
