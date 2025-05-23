@@ -50,10 +50,10 @@ function App() {
         <h1>DigitalNest Shop</h1>
         <nav>
           <Link to="/">Home</Link>
-          <button onClick={() => setShowCart(true)}>Cart ({cart.length})</button>
+          <button onClick={() => setShowCart(!showCart)}>Cart ({cart.length})</button>
         </nav>
       </header>
-      {showCart && <Cart cart={cart} updateCart={setCart} onClose={() => setShowCart(false)} />}
+      <Cart cart={cart} updateCart={setCart} onClose={() => setShowCart(false)} />
       <Routes>
         <Route
           path="/"

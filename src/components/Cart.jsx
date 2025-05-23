@@ -70,49 +70,58 @@ function Cart({ cart, onClose, updateCart }) {
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className="cart-modal">
+    <div className={`cart-sidebar ${cart.length === 0 ? 'hidden' : ''}`}>
       <div className="cart-content">
-        <h2>Your Cart</h2>
+        <div className="cart-title">
+          <h2>Your Cart</h2>
+          <button className="cart-close" onClick={onClose}>&times;</button>
+        </div>
+        
         {groupedItems.length > 0 ? (
           <>
-            {groupedItems.map(item => (
-              <div key={item.id} className="cart-item">
-                <div className="cart-item-info">
-                  <img src={item.image} alt={item.name} className="cart-item-image" />
-                  <div>
-                    <div>{item.name}</div>
-                    <div>${item.price.toFixed(2)}</div>
+            <div className="cart-items">
+              {groupedItems.map(item => (
+                <div key={item.id} className="cart-item">
+                  <div className="cart-item-info">
+                    <img src={item.image} alt={item.name} className="cart-item-image" />
+                    <div>
+                      <div>{item.name}</div>
+                      <div>${item.price.toFixed(2)}</div>
+                    </div>
+                  </div>
+                  <div className="cart-item-controls">
+                    <div className="quantity-control">
+                      <button 
+                        onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1)}
+                        className="quantity-btn"
+                      >-</button>
+                      <span className="quantity-display">{item.quantity || 1}</span>
+                      <button 
+                        onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1)}
+                        className="quantity-btn"
+                      >+</button>
+                    </div>
+                    <button 
+                      onClick={() => removeFromCart(item.id)} 
+                      className="remove-btn"
+                    >Remove</button>
                   </div>
                 </div>
-                <div className="cart-item-controls">
-                  <div className="quantity-control">
-                    <button 
-                      onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1)}
-                      className="quantity-btn"
-                    >-</button>
-                    <span className="quantity-display">{item.quantity || 1}</span>
-                    <button 
-                      onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1)}
-                      className="quantity-btn"
-                    >+</button>
-                  </div>
-                  <button 
-                    onClick={() => removeFromCart(item.id)} 
-                    className="remove-btn"
-                  >Remove</button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
             <p className="cart-total">Total: ${totalPrice.toFixed(2)}</p>
           </>
         ) : (
           <p>Your cart is empty</p>
         )}
-        <button onClick={onClose}>Close</button>
-        <button className="link-button" onClick={() => {
-          onClose();
-          navigate('/');
-        }}>Continue Shopping</button>
+        
+        <div className="cart-actions">
+          <button className="link-button" onClick={() => {
+            onClose();
+            navigate('/');
+          }}>Continue Shopping</button>
+          <button onClick={() => alert('Checkout not implemented yet')}>Checkout</button>
+        </div>
       </div>
     </div>
   );
