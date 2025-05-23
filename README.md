@@ -8,7 +8,7 @@ I created an online shop that pulls products from an API and lets users browse, 
 
 The shop remembers what's in your cart even if you close the browser - something real customers definitely appreciate!
 
-## Some Cool Stuff I Did
+## Key Implementation Details
 
 **The Shop Interface**  
 I built a clean, grid-based product display that looks great on everything from phones to desktops. Products are organized by category, making it easy to find what you're looking for.
