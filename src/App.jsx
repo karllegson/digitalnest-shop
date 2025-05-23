@@ -62,8 +62,8 @@ function App() {
           element={
             <main>
               <section id="product-section">
-                <h2>Our Products</h2>
-                <div>
+                <div className="product-header">
+                  <h2>Our Products</h2>
                   <select
                     id="category-filter"
                     value={selectedCategory}
