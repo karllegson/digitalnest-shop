@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { fetchProducts } from './utils/api';
 import ProductCard from './components/ProductCard';
+import ProductDetail from './components/ProductDetail';
 import './App.css';
 
 function App() {
@@ -14,7 +16,7 @@ function App() {
         const data = await fetchProducts();
         setProducts(data);
         const uniqueCategories = [...new Set(data.map(product => product.category))];
-        setCategories(uniqueCategories);
+        setCategories(['all', ...uniqueCategories]);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -27,38 +29,46 @@ function App() {
     : products.filter(product => product.category === selectedCategory);
 
   return (
-    <div>
-      <header>
-        <h1>DigitalNest Shop</h1>
-      </header>
-      <main>
-        <section id="product-section">
-          <h2>Our Products</h2>
+    <Routes>
+      <Route
+        path="/"
+        element={
           <div>
-            <select
-              id="category-filter"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              {categories.map(category => (
-                <option key={category} value={category}>
-                  {category === 'all' ? 'All Categories' : category}
-                </option>
-              ))}
-            </select>
+            <header>
+              <h1>DigitalNest Shop</h1>
+            </header>
+            <main>
+              <section id="product-section">
+                <h2>Our Products</h2>
+                <div>
+                  <select
+                    id="category-filter"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                  >
+                    {categories.map(category => (
+                      <option key={category} value={category}>
+                        {category === 'all' ? 'All Categories' : category}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div id="products-container">
+                  {products.length > 0 ? (
+                    products.map(product => (
+                      <ProductCard key={product.id} product={product} />
+                    ))
+                  ) : (
+                    <p>Loading products...</p>
+                  )}
+                </div>
+              </section>
+            </main>
           </div>
-          <div id="products-container">
-            {products.length > 0 ? (
-              products.map(product => (
-                <div key={product.id}>{product.name}</div>
-              ))
-            ) : (
-              <p>Loading products...</p>
-            )}
-          </div>
-        </section>
-      </main>
-    </div>
+        }
+      />
+      <Route path="/product/:id" element={<ProductDetail />} />
+    </Routes>
   );
 }
 
