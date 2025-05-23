@@ -72,7 +72,7 @@ function Cart({ cart, onClose, updateCart }) {
   return (
     <div className={`cart-sidebar ${cart.length === 0 ? 'hidden' : ''}`}>
       <div className="cart-content">
-        <div className="cart-title">
+        <div className="cart-header">
           <h2>Your Cart</h2>
           <button className="cart-close" onClick={onClose}>&times;</button>
         </div>
@@ -116,10 +116,7 @@ function Cart({ cart, onClose, updateCart }) {
         )}
         
         <div className="cart-actions">
-          <button className="link-button" onClick={() => {
-            onClose();
-            navigate('/');
-          }}>Continue Shopping</button>
+          <button onClick={onClose} className="link-button">Continue Shopping</button>
           <button onClick={() => alert('Checkout not implemented yet')}>Checkout</button>
         </div>
       </div>

@@ -172,8 +172,8 @@ header nav button:hover {
   right: 0;
   width: 320px;
   height: 100vh;
-  background: #1e1e1e;
-  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
+  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
   transform: translateX(0);
   transition: transform 0.3s ease;
   z-index: 1000;
@@ -185,11 +185,12 @@ header nav button:hover {
 }
 
 .cart-content {
-  background: #1e1e1e;
+  background: #ffffff;
   padding: 1.5rem;
   height: calc(100vh - 3rem);
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .cart-items {
@@ -199,12 +200,11 @@ header nav button:hover {
 }
 
 .cart-item {
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #333;
+  gap: 1rem;
 }
 
 .cart-item-info {
@@ -291,24 +291,30 @@ header nav button:hover {
 
 .cart-content a, 
 .cart-content .link-button {
-  background: #2c2c2c;
-  color: #3498db;
-  border: 1px solid #444;
+  background: #f7f7f7;
+  color: #333;
+  border: 1px solid #ddd;
 }
 
-.cart-title {
+.cart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #333;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
 }
 
 .cart-close {
-  background: transparent;
+  background: none;
   border: none;
-  color: #aaa;
+  color: #4a90e2;
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;

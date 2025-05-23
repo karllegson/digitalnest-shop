@@ -28,12 +28,6 @@ function ProductDetail() {
 
   return (
     <div>
-      <header>
-        <h1>DigitalNest Shop</h1>
-        <nav>
-          <Link to="/">Home</Link>
-        </nav>
-      </header>
       <main>
         <section id="product-detail">
           <h2>Product Details</h2>
