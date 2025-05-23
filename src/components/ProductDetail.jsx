@@ -19,10 +19,20 @@ function ProductDetail() {
     loadProduct();
   }, [id]);
 
+  const addToCart = () => {
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    storedCart.push(product);
+    localStorage.setItem('cart', JSON.stringify(storedCart));
+    alert(`${product.name} added to cart!`);
+  };
+
   return (
     <div>
       <header>
         <h1>DigitalNest Shop</h1>
+        <nav>
+          <Link to="/">Home</Link>
+        </nav>
       </header>
       <main>
         <section id="product-detail">
@@ -34,6 +44,7 @@ function ProductDetail() {
                 <h3>{product.name}</h3>
                 <p>{product.description}</p>
                 <p>${product.price.toFixed(2)}</p>
+                <button onClick={addToCart}>Add to Cart</button>
                 <Link to="/">Back to Products</Link>
               </div>
             </div>
