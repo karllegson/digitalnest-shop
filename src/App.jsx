@@ -89,7 +89,7 @@ function App() {
             </main>
           }
         />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
       </Routes>
     </>
   );

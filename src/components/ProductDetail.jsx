@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchProduct } from '../utils/api';
 
-function ProductDetail() {
+function ProductDetail({ addToCart }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -19,12 +19,7 @@ function ProductDetail() {
     loadProduct();
   }, [id]);
 
-  const addToCart = () => {
-    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    storedCart.push(product);
-    localStorage.setItem('cart', JSON.stringify(storedCart));
-    alert(`${product.name} added to cart!`);
-  };
+  // Using addToCart from props now
 
   return (
     <div>
@@ -38,7 +33,14 @@ function ProductDetail() {
                 <h3>{product.name}</h3>
                 <p>{product.description}</p>
                 <p>${product.price.toFixed(2)}</p>
-                <button onClick={addToCart}>Add to Cart</button>
+                <button onClick={() => addToCart({
+                  id: product.id,
+                  name: product.name,
+                  price: product.price,
+                  image: product.image,
+                  description: product.description,
+                  category: product.category
+                })}>Add to Cart</button>
                 <Link to="/">Back to Products</Link>
               </div>
             </div>

@@ -67,7 +67,7 @@ function Cart({ cart, onClose, updateCart, isVisible }) {
     }
   };
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + (item.price || 0), 0);
 
   return (
     <div className={`cart-sidebar ${!isVisible ? 'hidden' : ''}`}>
@@ -86,7 +86,7 @@ function Cart({ cart, onClose, updateCart, isVisible }) {
                     <img src={item.image} alt={item.name} className="cart-item-image" />
                     <div>
                       <div>{item.name}</div>
-                      <div>${item.price.toFixed(2)}</div>
+                      <div>${item.price ? item.price.toFixed(2) : '0.00'}</div>
                     </div>
                   </div>
                   <div className="cart-item-controls">
