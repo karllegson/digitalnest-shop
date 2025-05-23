@@ -54,8 +54,8 @@ function App() {
                   </select>
                 </div>
                 <div id="products-container">
-                  {products.length > 0 ? (
-                    products.map(product => (
+                  {filteredProducts.length > 0 ? (
+                    filteredProducts.map(product => (
                       <ProductCard key={product.id} product={product} />
                     ))
                   ) : (
