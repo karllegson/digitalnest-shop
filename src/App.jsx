@@ -47,11 +47,13 @@ function App() {
   return (
     <>
       <header>
-        <h1>DigitalNest Shop</h1>
-        <nav>
-          <Link to="/">Home</Link>
-          <button onClick={() => setShowCart(!showCart)}>Cart ({cart.length})</button>
-        </nav>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h1>DigitalNest Shop</h1>
+          <nav>
+            <Link to="/">Home</Link>
+            <button onClick={() => setShowCart(!showCart)}>Cart ({cart.length})</button>
+          </nav>
+        </div>
       </header>
       <Cart cart={cart} updateCart={setCart} onClose={() => setShowCart(false)} />
       <Routes>
