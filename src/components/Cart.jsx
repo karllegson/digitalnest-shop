@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-function Cart({ cart, onClose, updateCart }) {
+function Cart({ cart, onClose, updateCart, isVisible }) {
   const navigate = useNavigate();
 
   // Group the same products together and count how many of each we have
@@ -70,7 +70,7 @@ function Cart({ cart, onClose, updateCart }) {
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className={`cart-sidebar ${cart.length === 0 ? 'hidden' : ''}`}>
+    <div className={`cart-sidebar ${!isVisible ? 'hidden' : ''}`}>
       <div className="cart-content">
         <div className="cart-header">
           <h2>Your Cart</h2>

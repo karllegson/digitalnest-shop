@@ -191,12 +191,16 @@ header nav button:hover {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 .cart-items {
-  flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   margin-bottom: 1rem;
+  flex-grow: 1;
+  width: 100%;
 }
 
 .cart-item {
@@ -218,13 +222,15 @@ header nav button:hover {
   height: 50px;
   object-fit: cover;
   border-radius: 4px;
+  flex-shrink: 0;
 }
 
 .cart-item-controls {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 8px;
+  gap: 0.5rem;
+  min-width: 80px;
 }
 
 .quantity-control {
@@ -266,10 +272,11 @@ header nav button:hover {
 
 .cart-total {
   font-weight: bold;
-  text-align: right;
   margin-top: 1rem;
-  border-top: 1px solid #eee;
+  text-align: right;
+  border-top: 1px solid #ddd;
   padding-top: 1rem;
+  width: 100%;
 }
 
 .cart-content button,

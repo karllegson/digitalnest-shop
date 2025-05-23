@@ -55,7 +55,7 @@ function App() {
           </nav>
         </div>
       </header>
-      <Cart cart={cart} updateCart={setCart} onClose={() => setShowCart(false)} />
+      <Cart cart={cart} updateCart={setCart} onClose={() => setShowCart(false)} isVisible={showCart} />
       <Routes>
         <Route
           path="/"
