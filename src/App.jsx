@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { fetchProducts } from './utils/api';
 import ProductCard from './components/ProductCard';
 import ProductDetail from './components/ProductDetail';
+import Cart from './components/Cart';
 import './App.css';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [cart, setCart] = useState([]);
+  const [showCart, setShowCart] = useState(false);
 
   useEffect(() => {
     async function loadProducts() {
@@ -22,21 +25,35 @@ function App() {
       }
     }
     loadProducts();
+
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    setCart(storedCart);
   }, []);
+
+  const addToCart = (product) => {
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
 
   const filteredProducts = selectedCategory === 'all'
     ? products
     : products.filter(product => product.category === selectedCategory);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <div>
-            <header>
-              <h1>DigitalNest Shop</h1>
-            </header>
+    <>
+      <header>
+        <h1>DigitalNest Shop</h1>
+        <nav>
+          <Link to="/">Home</Link>
+          <button onClick={() => setShowCart(true)}>Cart ({cart.length})</button>
+        </nav>
+      </header>
+      {showCart && <Cart onClose={() => setShowCart(false)} />}
+      <Routes>
+        <Route
+          path="/"
+          element={
             <main>
               <section id="product-section">
                 <h2>Our Products</h2>
@@ -56,7 +73,7 @@ function App() {
                 <div id="products-container">
                   {filteredProducts.length > 0 ? (
                     filteredProducts.map(product => (
-                      <ProductCard key={product.id} product={product} />
+                      <ProductCard key={product.id} product={product} addToCart={addToCart} />
                     ))
                   ) : (
                     <p>Loading products...</p>
@@ -64,11 +81,11 @@ function App() {
                 </div>
               </section>
             </main>
-          </div>
-        }
-      />
-      <Route path="/product/:id" element={<ProductDetail />} />
-    </Routes>
+          }
+        />
+        <Route path="/product/:id" element={<ProductDetail />} />
+      </Routes>
+    </>
   );
 }
 
