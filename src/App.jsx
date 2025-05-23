@@ -48,7 +48,7 @@ function App() {
     <>
       <header>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1>DigitalNest Shop</h1>
+          <h1>DigitalNEST Shop</h1>
           <nav>
             <Link to="/">Home</Link>
             <button onClick={() => setShowCart(!showCart)}>Cart ({cart.length})</button>
