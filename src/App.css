@@ -162,15 +162,74 @@ header nav button:hover {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
 }
 
-.cart-item button {
+.cart-item-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-item-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.cart-item-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-btn {
+  background: #f8f9fa;
+  color: #007bff;
+  border: 1px solid #ddd;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+}
+
+.quantity-display {
+  padding: 0 5px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.remove-btn {
   background: #dc3545;
   color: white;
   border: none;
   padding: 0.3rem 0.6rem;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 12px;
+}
+
+.cart-total {
+  font-weight: bold;
+  text-align: right;
+  margin-top: 1rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
 }
 
 .cart-content button,
