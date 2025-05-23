@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 function Cart({ cart, onClose, updateCart }) {
   const navigate = useNavigate();
 
-  // Group cart items by product ID and calculate quantities
+  // Group the same products together and count how many of each we have
   const groupedItems = cart.reduce((acc, item) => {
     const existingItem = acc.find(i => i.id === item.id);
     if (existingItem) {
+      // Already have this product, just increase the count
       existingItem.quantity = (existingItem.quantity || 1) + 1;
     } else {
+      // First time seeing this product, add it with quantity = 1
       acc.push({ ...item, quantity: 1 });
     }
     return acc;
@@ -23,42 +25,42 @@ function Cart({ cart, onClose, updateCart }) {
   const updateQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
     
-    // Find the index of the first occurrence of this product
+    // Find where this product first appears in the cart
     const firstItemIndex = cart.findIndex(item => item.id === productId);
     if (firstItemIndex === -1) return;
     
-    // Create a copy of the cart
+    // Make a copy of the cart so we don't mess up the original
     const updatedCart = [...cart];
     
-    // Count current quantity of this product
+    // See how many of this product we already have
     const currentItems = cart.filter(item => item.id === productId);
     const currentQty = currentItems.length;
     
-    // If increasing quantity
+    // Adding more of this product
     if (newQuantity > currentQty) {
-      // Add the new items at the same position as the first item
+      // Create the new items we need to add
       const additionalItems = Array(newQuantity - currentQty).fill().map(() => ({
         ...currentItems[0],
-        cartItemId: Date.now() + Math.random() // Ensure unique IDs
+        cartItemId: Date.now() + Math.random() // Need unique IDs for each item
       }));
       
-      // Remove existing items of this product
+      // Take out the existing ones first
       const cartWithoutProduct = updatedCart.filter(item => item.id !== productId);
       
-      // Insert all items at the original position
+      // Put everything back in the same spot so items don't jump around
       cartWithoutProduct.splice(firstItemIndex, 0, ...currentItems, ...additionalItems);
       updateCart(cartWithoutProduct);
       localStorage.setItem('cart', JSON.stringify(cartWithoutProduct));
     } 
-    // If decreasing quantity
+    // Removing some of this product
     else if (newQuantity < currentQty) {
-      // Keep only the needed number of items
+      // Just keep the ones we need
       const itemsToKeep = currentItems.slice(0, newQuantity);
       
-      // Remove all instances of this product
+      // Take out all of this product
       const cartWithoutProduct = updatedCart.filter(item => item.id !== productId);
       
-      // Insert the items to keep at the original position
+      // Put the ones we're keeping back in the same spot
       cartWithoutProduct.splice(firstItemIndex, 0, ...itemsToKeep);
       updateCart(cartWithoutProduct);
       localStorage.setItem('cart', JSON.stringify(cartWithoutProduct));
