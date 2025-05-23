@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchProducts } from './utils/api';
+import ProductCard from './components/ProductCard';
 import './App.css';
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
     loadProducts();
   }, []);
 
+  const filteredProducts = selectedCategory === 'all'
+    ? products
+    : products.filter(product => product.category === selectedCategory);
+
   return (
     <div>
       <header>
@@ -35,9 +40,10 @@ function App() {
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option value="all">All Categories</option>
               {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+                <option key={category} value={category}>
+                  {category === 'all' ? 'All Categories' : category}
+                </option>
               ))}
             </select>
           </div>
